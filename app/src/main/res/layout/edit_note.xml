@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <solo.snapit.widget.AspectRatioImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:aspectRatioEnabled="true" />
+
+        <Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/toolbar"
+            style="@style/Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:navigationIcon="@drawable/ic_back"
+            android:theme="@style/ToolbarTheme.Trans" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#CCFFFFFF"
+        android:visibility="invisible" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?android:attr/actionBarSize"
+                android:visibility="gone" />
+
+            <solo.snapit.widget.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:id="@+id/edit_text_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <View
+                    android:id="@+id/text_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#795548"
+                    android:visibility="invisible" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/fab_margin"
+                        android:paddingLeft="@dimen/fab_margin"
+                        android:paddingTop="@dimen/fab_margin">
+
+                        <EditText
+                            android:id="@+id/edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:gravity="top"
+                            android:hint="备注一下"
+                            android:textColor="#cfff"
+                            android:textColorHint="#80ffffff"
+                            android:textCursorDrawable="@null"
+                            android:textSize="16sp"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/note"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textColor="#212121"
+                            android:textSize="16sp" />
+
+                    </RelativeLayout>
+
+                    <Space
+                        android:layout_width="58dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/fab_margin" />
+                </LinearLayout>
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:orientation="vertical">
+
+            <TableRow
+                android:id="@+id/action_note"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/note_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bt_speed_dial_item_text_background"
+                    android:duplicateParentState="true"
+                    android:paddingBottom="4dp"
+                    android:paddingEnd="6dp"
+                    android:paddingStart="6dp"
+                    android:paddingTop="4dp"
+                    android:text="备注" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp">
+
+                    <com.software.shell.fab.ActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/note_fab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:duplicateParentState="true"
+                        app:button_color="#795548"
+                        app:button_colorPressed="#5D4037"
+                        app:image="@drawable/ic_pencil_white_24dp"
+                        app:shadow_radius="5dp"
+                        app:shadow_xOffset="0dp"
+                        app:shadow_yOffset="0dp"
+                        app:type="MINI" />
+                </FrameLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/action_save"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/save_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bt_speed_dial_item_text_background"
+                    android:duplicateParentState="true"
+                    android:paddingBottom="4dp"
+                    android:paddingEnd="6dp"
+                    android:paddingStart="6dp"
+                    android:paddingTop="4dp"
+                    android:text="保存" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <com.software.shell.fab.ActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/fab"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:duplicateParentState="true"
+                            app:button_color="?attr/colorPrimary"
+                            app:button_colorPressed="?attr/colorPrimaryDark"
+                            app:shadow_radius="5dp"
+                            app:shadow_xOffset="0dp"
+                            app:shadow_yOffset="0dp"
+                            app:type="DEFAULT" />
+
+                        <ImageView
+                            android:id="@+id/fab_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/ic_menu_white_24dp" />
+
+                        <ImageView
+                            android:id="@+id/fab_image2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:alpha="0"
+                            android:src="@drawable/bt_ic_done_wht_24dp" />
+
+                    </RelativeLayout>
+                </FrameLayout>
+            </TableRow>
+
+        </TableLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#795548"
+        android:gravity="center"
+        android:minHeight="?android:attr/actionBarSize"
+        android:text="点击空白区域可退出编辑模式"
+        android:textColor="#cfff" />
+
+</RelativeLayout>

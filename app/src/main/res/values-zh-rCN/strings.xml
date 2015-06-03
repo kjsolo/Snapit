@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Snapit</string>
+    <string name="edit_on">编辑于 %s</string>
+    <string name="time_format">M月d日 ahh:mm</string>
+</resources>

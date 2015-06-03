@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Snapit</string>
+
+    <string name="edit_on">Edit on %s</string>
+    <string name="time_format">MMM d, hh:mm a</string>
+</resources>

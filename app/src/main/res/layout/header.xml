@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <solo.snapit.widget.AspectRatioImageView
+        android:id="@+id/cover"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/header_cover"
+        app:aspectRatio="0.5625"
+        app:aspectRatioEnabled="true"
+        app:dominantMeasurement="width" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center_horizontal">
+
+        <TextView
+            android:id="@+id/day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="18"
+            android:textColor="#fff"
+            android:textSize="52sp" />
+
+        <TextView
+            android:id="@+id/week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="周三"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/windows_bg</item>
+        <!-- colorPrimary is used for the default action bar background -->
+        <item name="colorPrimary">#00BCD4</item>
+        <!-- colorPrimaryDark is used for the status bar -->
+        <item name="colorPrimaryDark">#0097A7</item>
+        <!-- colorAccent is used as the default value for colorControlActivated
+         which is used to tint widgets -->
+        <item name="colorAccent">#B2EBF2</item>
+        <!-- You can also set colorControlNormal, colorControlActivated
+         colorControlHighlight & colorSwitchThumbNormal. -->
+
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="NoteTheme" parent="BaseTheme">
+        <item name="android:statusBarColor">?attr/colorPrimaryDark</item>
+    </style>
+
+    <style name="NoteTheme.Fullscreen">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+</resources>

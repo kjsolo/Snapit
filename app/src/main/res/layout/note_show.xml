@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<solo.snapit.widget.SemiLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <solo.snapit.view.ParallaxScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scroll_view"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:parallax_factor="1.9">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <solo.snapit.widget.AspectRatioImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_holder_color"
+                app:aspectRatio="0.5625"
+                app:aspectRatioEnabled="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="72dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_alarm_grey600_24dp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="提醒时间"
+                            android:textColor="#DE000000"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/remind"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="周一，下午5:00"
+                            android:textColor="#8A000000"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <Switch
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="72dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_map_marker_radius_grey600_24dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="地点"
+                            android:textColor="#DE000000"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="世纪春城四期"
+                            android:textColor="#8A000000"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/divider" />
+
+                <TextView
+                    android:id="@+id/created"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:text="创建时间"
+                    android:textColor="#8A000000"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/note"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="top"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="8dp"
+                    android:text="备注"
+                    android:textColor="#DE000000"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </solo.snapit.view.ParallaxScrollView>
+
+</solo.snapit.widget.SemiLayout>

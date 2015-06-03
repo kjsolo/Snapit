@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="windows_bg">#fff</color>
+    <drawable name="image_holder_color">#009efa</drawable>
+</resources>

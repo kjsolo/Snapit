@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/toolbar"
+            style="@style/Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#000"
+            android:navigationIcon="@drawable/ic_back"
+            android:theme="@style/ToolbarTheme.Trans"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/camera_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <solo.snapit.widget.SquareLayout
+                    android:id="@+id/cameraFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/flash1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_alignEnd="@id/cameraFragment"
+                    android:layout_alignStart="@id/cameraFragment"
+                    android:layout_alignTop="@id/cameraFragment"
+                    android:src="#000" />
+
+                <ImageView
+                    android:id="@+id/flash2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_alignBottom="@id/cameraFragment"
+                    android:layout_alignEnd="@id/cameraFragment"
+                    android:layout_alignStart="@id/cameraFragment"
+                    android:src="#000" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <FrameLayout
+                    android:id="@+id/snap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+                    <!--android:layout_marginEnd="@dimen/fab_margin"-->
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:duplicateParentState="true"
+                        android:src="@drawable/snap_btn" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Snap"
+                        android:textColor="#fff"
+                        android:textSize="18sp" />
+                </FrameLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

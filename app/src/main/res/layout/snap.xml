@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000">
+
+    <Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbar"
+        style="@style/Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000"
+        android:navigationIcon="@drawable/ic_close"
+        android:theme="@style/ToolbarTheme.Trans" />
+
+    <RelativeLayout
+        android:id="@+id/camera_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/cameraFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/flash1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignTop="@id/cameraFragment"
+            android:src="#000" />
+
+        <ImageView
+            android:id="@+id/flash2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignBottom="@id/cameraFragment"
+            android:src="#000" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <FrameLayout
+            android:id="@+id/snap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+            <!--android:layout_marginBottom="@dimen/fab_margin"-->
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:duplicateParentState="true"
+                android:src="@drawable/snap_btn_bg" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:duplicateParentState="true"
+                android:src="@drawable/snap_btn" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Snap"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+        </FrameLayout>
+    </RelativeLayout>
+</RelativeLayout>
