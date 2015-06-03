@@ -50,7 +50,7 @@ public abstract class BaseContentProvider extends ContentProvider {
         if (operation != null) {
             SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
             long rowId = operation.insert(db, values);
-            if (rowId > 0) {
+            if (rowId >= 0) {
                 Uri newUri = ContentUris.withAppendedId(operation.getContentUri(), rowId);
                 getContext().getContentResolver().notifyChange(newUri, null);
                 return newUri;
@@ -93,7 +93,7 @@ public abstract class BaseContentProvider extends ContentProvider {
             try {
                 for (ContentValues cv : values) {
                     long rowId = operation.insert(db, cv);
-                    if (rowId <= 0) {
+                    if (rowId < 0) {
                         throw new SQLException("Failed to insert row into " + uri);
                     }
                 }

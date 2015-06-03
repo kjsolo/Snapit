@@ -88,7 +88,7 @@ public abstract class BaseEntity implements IEntity, IProviderOperation, Parcela
     public Cursor query(SQLiteDatabase database, Uri uri, String[] projection, String selection, String[] args, String order) {
         long id = getUriId(uri);
         Class<? extends BaseEntity> clz = this.getClass();
-        if (id > 0) {
+        if (id >= 0) {
             return cupboard().withDatabase(database).query(clz).byId(id).getCursor();
         } else {
             return cupboard().withDatabase(database).query(clz).withProjection(projection)
