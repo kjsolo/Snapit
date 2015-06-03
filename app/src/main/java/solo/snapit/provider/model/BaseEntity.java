@@ -88,7 +88,7 @@ public abstract class BaseEntity implements IEntity, IProviderOperation, Parcela
     public Cursor query(SQLiteDatabase database, Uri uri, String[] projection, String selection, String[] args, String order) {
         long id = getUriId(uri);
         Class<? extends BaseEntity> clz = this.getClass();
-        if (id >= 0) {
+        if (id > 0) {
             return cupboard().withDatabase(database).query(clz).byId(id).getCursor();
         } else {
             return cupboard().withDatabase(database).query(clz).withProjection(projection)
@@ -114,7 +114,7 @@ public abstract class BaseEntity implements IEntity, IProviderOperation, Parcela
         long id = getUriId(uri);
         Class<? extends BaseEntity> clz = this.getClass();
         int ret;
-        if (id >= 0) {
+        if (id > 0) {
             cupboard().withDatabase(database).delete(clz, id);
             ret = 1;
         } else {
@@ -129,7 +129,7 @@ public abstract class BaseEntity implements IEntity, IProviderOperation, Parcela
         values.put(LOCAL_LAST_MODIFIED, now);
         long id = getUriId(uri);
         Class<? extends BaseEntity> clz = this.getClass();
-        if (id >= 0) {
+        if (id > 0) {
             if (!values.containsKey(LOCAL_ID)) {
                 values.put(LOCAL_ID, id);
             }

@@ -17,15 +17,20 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import jp.wasabeef.recyclerview.animators.FadeInAnimator;
+import jp.wasabeef.recyclerview.animators.LandingAnimator;
 import solo.snapit.R;
 import solo.snapit.adapter.NoteList2Adapter;
 import solo.snapit.model.Note;
 import solo.snapit.provider.model.toolbox.EntityUtils;
+import solo.snapit.tools.SLog;
 
 /**
  * Created by solo on 15/2/18.
  */
 public class NoteListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    private static final String TAG = NoteListFragment.class.getSimpleName();
 
     @InjectView(R.id.recyclerView) RecyclerView mRecyclerView;
 
@@ -63,6 +68,10 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
         mAdapter = new NoteList2Adapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
+        mRecyclerView.setItemAnimator(new FadeInAnimator());
+
+        mRecyclerView.getItemAnimator().setAddDuration(600);
+
         // 加载数据
         getLoaderManager().initLoader(0, null, this);
     }
@@ -91,6 +100,8 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
         if (data == null) {
             return;
         }
+
+        //SLog.d(TAG, "Cursor notify uri " + data.getNotificationUri());
 
         // 对比数据库和列表的数据，动态添加数据
         if (data.moveToFirst()) {
@@ -136,8 +147,8 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
 
                 int listIndex = oldIndex + listIndexOffset;
                 switch (compare) {
-                    // oldID < newID
-                    case -1: {
+                    // oldID > newID
+                    case 1: {
                         // 表明old集合中的这一项在new集合中找不到
                         // 所以我们将这个从列表中删掉
                         mAdapter.removeItem(listIndex);
@@ -147,8 +158,8 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
                         break;
                     }
 
-                    // oldID > newID
-                    case 1: {
+                    // oldID < newID
+                    case -1: {
                         // 表明new集合中的这一项在old集合中找不到
                         // 所以我们将这个添加到列表中去
                         data.moveToPosition(newIndex);

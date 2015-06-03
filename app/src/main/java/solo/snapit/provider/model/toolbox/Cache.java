@@ -47,7 +47,7 @@ public class Cache {
                 if (DEBUG) Log.d(TAG, "[get] 没有LocalId，正在修复");
             }
             Cursor cursor = context.getContentResolver().query(uri, null, selection, null, null);
-            T localEntity = EntityUtils.get(cursor, clz);
+            T localEntity = EntityUtils.get(cursor, clz, true);
             if (localEntity != null) {
                 entitys.put(uri, localEntity);
             }

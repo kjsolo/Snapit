@@ -66,4 +66,5 @@ dependencies {
     compile ('com.commonsware.cwac:camera:0.6.+') {
         exclude module: 'support-v4'
     }
+    compile 'jp.wasabeef:recyclerview-animators:1.2.0'
 }

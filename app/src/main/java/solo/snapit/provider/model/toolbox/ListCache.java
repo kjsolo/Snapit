@@ -27,7 +27,7 @@ public class ListCache {
 
     public static <T extends BaseEntity> List<T> get(Context context, Uri uri,  String[] projection, String selection, String[] selectionArgs, String sortOrder, Class<T> clz) {
         Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
-        return EntityUtils.list(cursor, clz);
+        return EntityUtils.list(cursor, clz, true);
     }
 
     public static <T extends BaseEntity> void save(Context context, Uri uri, int localType, List<T> result) {

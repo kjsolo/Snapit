@@ -15,7 +15,7 @@ import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 public class EntityUtils {
 
     public static <T> T get(Cursor cursor, Class<T> clz) {
-        return get(cursor, clz, true);
+        return get(cursor, clz, false);
     }
 
     public static <T> T get(Cursor cursor, Class<T> clz, boolean closeCursor) {
@@ -27,7 +27,7 @@ public class EntityUtils {
     }
 
     public static <T> List<T> list(Cursor cursor, Class<T> clz) {
-        return list(cursor, clz, true);
+        return list(cursor, clz, false);
     }
 
     public static <T> List<T> list(Cursor cursor, Class<T> clz, boolean closeCursor) {

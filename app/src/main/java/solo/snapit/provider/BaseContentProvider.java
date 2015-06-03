@@ -18,8 +18,8 @@ import solo.snapit.provider.model.IProviderOperation;
  */
 public abstract class BaseContentProvider extends ContentProvider {
 
-    private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-    private static final SparseArray<IProviderOperation> operations = new SparseArray<>();
+    private final UriMatcher mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+    private final SparseArray<IProviderOperation> mOperations = new SparseArray<>();
 
     private SQLiteOpenHelper mDatabaseHelper;
 
@@ -36,21 +36,23 @@ public abstract class BaseContentProvider extends ContentProvider {
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-        IProviderOperation operation = operations.get(uriMatcher.match(uri));
+        IProviderOperation operation = mOperations.get(mUriMatcher.match(uri));
         if (operation != null) {
             SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
-            return operation.query(db, uri, projection, selection, selectionArgs, sortOrder);
+            Cursor cursor = operation.query(db, uri, projection, selection, selectionArgs, sortOrder);
+            cursor.setNotificationUri(getContext().getContentResolver(), uri);
+            return cursor;
         }
         throw new IllegalArgumentException("Unknown URI " + uri);
     }
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        IProviderOperation operation = operations.get(uriMatcher.match(uri));
+        IProviderOperation operation = mOperations.get(mUriMatcher.match(uri));
         if (operation != null) {
             SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
             long rowId = operation.insert(db, values);
-            if (rowId >= 0) {
+            if (rowId > 0) {
                 Uri newUri = ContentUris.withAppendedId(operation.getContentUri(), rowId);
                 getContext().getContentResolver().notifyChange(newUri, null);
                 return newUri;
@@ -62,7 +64,7 @@ public abstract class BaseContentProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        IProviderOperation operation = operations.get(uriMatcher.match(uri));
+        IProviderOperation operation = mOperations.get(mUriMatcher.match(uri));
         if (operation != null) {
             SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
             int count = operation.delete(db, uri, selection, selectionArgs);
@@ -74,7 +76,7 @@ public abstract class BaseContentProvider extends ContentProvider {
 
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        IProviderOperation operation = operations.get(uriMatcher.match(uri));
+        IProviderOperation operation = mOperations.get(mUriMatcher.match(uri));
         if (operation != null) {
             SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
             int count = operation.update(db, uri, values, selection, selectionArgs);
@@ -86,7 +88,7 @@ public abstract class BaseContentProvider extends ContentProvider {
 
     @Override
     public int bulkInsert(Uri uri, ContentValues[] values) {
-        IProviderOperation operation = operations.get(uriMatcher.match(uri));
+        IProviderOperation operation = mOperations.get(mUriMatcher.match(uri));
         if (operation != null) {
             SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
             db.beginTransaction();
@@ -111,8 +113,8 @@ public abstract class BaseContentProvider extends ContentProvider {
         // e.g: book -> 0 -> operation
         //      book_id -> 1 -> operation
         //      0/1 -> operation
-        uriMatcher.addURI(getAuthority(), path, code);
-        operations.put(code, operation);
+        mUriMatcher.addURI(getAuthority(), path, code);
+        mOperations.put(code, operation);
     }
 
     protected abstract String getAuthority();
