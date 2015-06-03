@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <solo.snapit.widget.HeaderPlaceHolder
+    <cn.soloho.snapit.widget.HeaderPlaceHolder
         android:id="@+id/cover"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

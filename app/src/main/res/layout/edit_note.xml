@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <solo.snapit.widget.AspectRatioImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        <cn.soloho.snapit.widget.AspectRatioImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                 android:minHeight="?android:attr/actionBarSize"
                 android:visibility="gone" />
 
-            <solo.snapit.widget.SquareLayout
+            <cn.soloho.snapit.widget.SquareLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
