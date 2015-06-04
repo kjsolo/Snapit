@@ -1,6 +1,7 @@
 package cn.soloho.snapit.model;
 
 import android.content.ContentValues;
+import android.graphics.Color;
 import android.net.Uri;
 
 import cn.soloho.snapit.provider.SnapitContentProvider;
@@ -13,6 +14,8 @@ import nl.qbusict.cupboard.CupboardFactory;
 public class Note extends BaseEntity {
 
     public static final Uri CONTENT_URI = Uri.parse("content://" + SnapitContentProvider.AUTHORITY + "/notes");
+    public static final String COL_ITEM_BACKGROUND_COLOR = "itemBackgroundColor";
+    public static final String COL_ITEM_REMARK_TEXT_COLOR = "itemRemarkTextColor";
 
     private String id;
     private String imageUri;
@@ -21,6 +24,11 @@ public class Note extends BaseEntity {
     private double lat;
     private double lng;
     private long remind;
+
+    private int itemBackgroundColor;
+    private int itemRemarkTextColor;
+    private int itemRemindTextColor;
+    private int itemCreatedTextColor;
 
     public String getId() {
         return id;
@@ -76,6 +84,47 @@ public class Note extends BaseEntity {
 
     public void setRemind(long remind) {
         this.remind = remind;
+    }
+
+    public int getItemBackgroundColor() {
+        return itemBackgroundColor;
+    }
+
+    public void setItemBackgroundColor(int itemBackgroundColor) {
+        this.itemBackgroundColor = itemBackgroundColor;
+    }
+
+    public int getItemRemarkTextColor() {
+        if (itemRemarkTextColor == 0) {
+            return Color.BLACK;
+        }
+        return itemRemarkTextColor;
+    }
+
+    public void setItemRemarkTextColor(int itemRemarkTextColor) {
+        this.itemRemarkTextColor = itemRemarkTextColor;
+    }
+
+    public int getItemRemindTextColor() {
+        if (itemRemindTextColor == 0) {
+            return Color.BLACK;
+        }
+        return itemRemindTextColor;
+    }
+
+    public void setItemRemindTextColor(int itemRemindTextColor) {
+        this.itemRemindTextColor = itemRemindTextColor;
+    }
+
+    public int getItemCreatedTextColor() {
+        if (itemCreatedTextColor == 0) {
+            return Color.BLACK;
+        }
+        return itemCreatedTextColor;
+    }
+
+    public void setItemCreatedTextColor(int itemCreatedTextColor) {
+        this.itemCreatedTextColor = itemCreatedTextColor;
     }
 
     @Override

@@ -17,11 +17,11 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cn.soloho.snapit.R;
 import cn.soloho.snapit.adapter.NoteList2Adapter;
 import cn.soloho.snapit.model.Note;
 import cn.soloho.snapit.provider.model.toolbox.EntityUtils;
 import jp.wasabeef.recyclerview.animators.FadeInAnimator;
-import cn.soloho.snapit.R;
 
 /**
  * Created by solo on 15/2/18.
@@ -51,7 +51,7 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // 注入View
+        // Inject views
         ButterKnife.inject(this, view);
     }
 
@@ -59,18 +59,16 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // 设置列表布局
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        // 设置Adapter
         mAdapter = new NoteList2Adapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);
-
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new FadeInAnimator());
-
         mRecyclerView.getItemAnimator().setAddDuration(600);
+        mRecyclerView.getItemAnimator().setChangeDuration(600);
+        mRecyclerView.getItemAnimator().setMoveDuration(300);
+        mRecyclerView.getItemAnimator().setRemoveDuration(600);
 
-        // 加载数据
+        // Load note data
         getLoaderManager().initLoader(0, null, this);
     }
 
@@ -78,7 +76,7 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
     public void onDestroyView() {
         super.onDestroyView();
 
-        // 重置释放View
+        // Release views
         ButterKnife.reset(this);
     }
 
@@ -104,7 +102,7 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
         // 对比数据库和列表的数据，动态添加数据
         if (data.moveToFirst()) {
             int rowIDColumn = data.getColumnIndexOrThrow("_id");
-            int lastModifiedColumn = data.getColumnIndex(Note.LOCAL_LAST_MODIFIED);
+            int lastModifiedColumn = data.getColumnIndexOrThrow(Note.LOCAL_LAST_MODIFIED);
 
             // 收集数据库中的id
             Long[] newRowIds = new Long[data.getCount()];
@@ -131,7 +129,7 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
                 return;
             }
 
-            // 先排序，排序是重点，减少查询
+            // 先排序，排序是重点，是保障下面算法的基础
             // 实际上数据库里面读出来的就是经过排序的，所以没必要再次排序
             //Arrays.sort(newRowIds, Collections.reverseOrder());
             //Arrays.sort(oldRowIds, Collections.reverseOrder());
@@ -140,6 +138,7 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
             int oldIndex = 0;
             int listIndexOffset = 0;
 
+            // 对比两个数组，把A数组同步成B数组
             while (newIndex < newRowIds.length && oldIndex < oldRowIds.length) {
                 int compare = Long.signum(oldRowIds[oldIndex] - newRowIds[newIndex]);
 
@@ -171,14 +170,13 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
 
                     // oldID == newID
                     default: {
-
                         // 两个的最后更新时间
+                        data.moveToPosition(newIndex);
                         long oldNoteLM = mAdapter.getItem(oldIndex + listIndexOffset).getLastModified();
                         long newNoteLM = data.getLong(lastModifiedColumn);
 
                         // 比较两个最后的更新时间，如果不一样，我们就替换
                         if (oldNoteLM != newNoteLM) {
-                            data.moveToPosition(newIndex);
                             Note newNote = EntityUtils.get(data, Note.class);
                             mAdapter.setItem(listIndex, newNote);
                         }
@@ -190,11 +188,14 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
                 }
             }
 
+            // 处理数组对比后剩余的部分
             if (oldIndex == oldRowIds.length - 1 && newIndex < newRowIds.length - 1) {
+                // 将B剩余的添加到A中
                 data.moveToPosition(newIndex);
                 List<Note> notes = EntityUtils.list(data, Note.class);
                 mAdapter.addItems(oldIndex + listIndexOffset, notes);
             } else if (newIndex == newRowIds.length - 1 && oldIndex < oldRowIds.length - 1) {
+                // 将A剩余的都删掉
                 mAdapter.removeItems(oldIndex + listIndexOffset);
             }
         } else {

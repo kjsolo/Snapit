@@ -18,12 +18,12 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.soloho.snapit.Bamboo;
+import cn.soloho.snapit.R;
 import cn.soloho.snapit.fragment.NoteListFragment;
 import cn.soloho.snapit.model.Note;
 import cn.soloho.snapit.tools.BitmapUtils;
 import cn.soloho.snapit.tools.FileUtils;
 import cn.soloho.snapit.widget.SToast;
-import cn.soloho.snapit.R;
 
 /**
  * Created by solo on 15/2/18.
@@ -114,11 +114,9 @@ public class MainActivity extends Activity {
                             try {
                                 // 创建需要保存的文件路径
                                 String ts = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
-                                File file = new File(new File(
-                                        getExternalFilesDir(Environment.DIRECTORY_PICTURES),    // Pictures
-                                        Bamboo.Picture.NOTE_PICTURES),                          // Note_Pictures
-                                        "Photo_" + ts + ".jpg"                                  // Photo_yyyyMMdd_HHmmss.jpg
-                                );
+                                File dir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                                        Bamboo.Picture.NOTE_PICTURES);
+                                File file = new File(dir, "Photo_" + ts + ".jpg");
 
                                 // 获取图片拍照时的角度，便于修正
                                 int degrees = BitmapUtils.getOrientation(this, mTempPictureUri);
@@ -135,10 +133,11 @@ public class MainActivity extends Activity {
                                         degrees);           // 图片旋转角度
 
                                 // 创建.nomedia文件，可避免被扫描
-                                FileUtils.createNoMediaFile(file);
+                                FileUtils.createNoMediaFile(dir);
 
                                 Note note = new Note();
                                 note.setImageUri(Uri.fromFile(file).toString());
+                                note.setRemark("Maybe I have a dream");
                                 getContentResolver().insert(Note.CONTENT_URI, note.toContentValues());
                             } catch (Exception e) {
                                 SToast.show(this, "无法保存图片");

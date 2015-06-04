@@ -9,7 +9,7 @@ import cn.soloho.snapit.model.Note;
  */
 public class SnapitSQLiteOpenHelper extends BaseSQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "card.db";
+    private static final String DATABASE_NAME = "snapit.db";
     private static final int DATABASE_VERSION = 1;
 
     static {
