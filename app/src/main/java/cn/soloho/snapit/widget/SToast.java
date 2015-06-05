@@ -9,7 +9,7 @@ import android.widget.Toast;
 public class SToast {
 
     public static void show(Context context, CharSequence text) {
-        Toast.makeText(context, text, Toast.LENGTH_SHORT);
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
 
 }
