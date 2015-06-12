@@ -30,7 +30,8 @@ import cn.soloho.snapit.widget.recycler.RecyclerViewHolder;
 /**
  * Created by solo on 15/6/1.
  */
-public class NoteList2Adapter extends RecyclerArrayAdapter<Note, NoteList2Adapter.ViewHolder> implements OnRecyclerItemClickListener {
+public class NoteList2Adapter extends RecyclerArrayAdapter<Note, NoteList2Adapter.ViewHolder>
+        implements OnRecyclerItemClickListener {
 
     private static final String TAG = NoteList2Adapter.class.getSimpleName();
 
@@ -72,46 +73,49 @@ public class NoteList2Adapter extends RecyclerArrayAdapter<Note, NoteList2Adapte
             super.populate(position, item);
 
             // 加载笔记图片
-            ImageLoader.getInstance().displayImage(item.getImageUri(), mImageView, new SimpleImageLoadingListener() {
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    super.onLoadingComplete(imageUri, view, loadedImage);
-
-                    if (item.getItemRemarkTextColor() != Color.BLACK) {
-                        // 如果背景有颜色，我们的文字统一使用白色，
-                        // 所以可以根据文字的颜色来判断是否配过颜色
-                        SLog.d(TAG, "[NoteList2Adapter] Background color was set " + item.getItemBackgroundColor());
-                        return;
-                    }
-
-                    // 生成文字覆盖所需的缩略图
-                    Bitmap overlay = ThumbnailUtils.extractThumbnail(loadedImage,
-                            mRemarkView.getMeasuredWidth(),
-                            mRemarkView.getMeasuredHeight());
-
-                    // 生成对应的背景颜色
-                    Palette.from(overlay).generate(new Palette.PaletteAsyncListener() {
+            ImageLoader.getInstance().displayImage(item.getImageUri(),
+                    mImageView, new SimpleImageLoadingListener() {
                         @Override
-                        public void onGenerated(Palette palette) {
-                            if (getContext() == null) {
+                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                            super.onLoadingComplete(imageUri, view, loadedImage);
+
+                            if (item.getItemRemarkTextColor() != Color.BLACK) {
+                                // 如果背景有颜色，我们的文字统一使用白色，
+                                // 所以可以根据文字的颜色来判断是否配过颜色
+                                SLog.d(TAG, "[NoteList2Adapter] Background color was set "
+                                        + item.getItemBackgroundColor());
                                 return;
                             }
 
-                            Palette.Swatch swatch = palette.getVibrantSwatch();
-                            if (swatch == null) {
-                                swatch = palette.getMutedSwatch();
-                            }
-                            if (swatch != null) {
-                                // 更新这一项的背景和文字颜色
-                                ContentValues values = new ContentValues();
-                                values.put(Note.COL_ITEM_BACKGROUND_COLOR, swatch.getRgb());
-                                values.put(Note.COL_ITEM_REMARK_TEXT_COLOR, Color.WHITE);
+                            // 生成文字覆盖所需的缩略图
+                            Bitmap overlay = ThumbnailUtils.extractThumbnail(loadedImage,
+                                    mRemarkView.getMeasuredWidth(),
+                                    mRemarkView.getMeasuredHeight());
 
-                                Uri uri = ContentUris.withAppendedId(Note.CONTENT_URI, item.getLocalId());
-                                getContext().getContentResolver().update(uri, values, null, null);
-                            }
-                        }
-                    });
+                            // 生成对应的背景颜色
+                            Palette.from(overlay).generate(new Palette.PaletteAsyncListener() {
+                                @Override
+                                public void onGenerated(Palette palette) {
+                                    if (getContext() == null) {
+                                        return;
+                                    }
+
+                                    Palette.Swatch swatch = palette.getVibrantSwatch();
+                                    if (swatch == null) {
+                                        swatch = palette.getMutedSwatch();
+                                    }
+                                    if (swatch != null) {
+                                        // 更新这一项的背景和文字颜色
+                                        ContentValues values = new ContentValues();
+                                        values.put(Note.COL_ITEM_BACKGROUND_COLOR, swatch.getRgb());
+                                        values.put(Note.COL_ITEM_REMARK_TEXT_COLOR, Color.WHITE);
+
+                                        Uri uri = ContentUris.withAppendedId(Note.CONTENT_URI,
+                                                item.getLocalId());
+                                        getContext().getContentResolver().update(uri, values, null, null);
+                                    }
+                                }
+                            });
                 }
             });
 
